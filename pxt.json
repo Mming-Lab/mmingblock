@@ -8,7 +8,10 @@
     "files": [
         "main.blocks",
         "main.ts",
-        "README.md"
+        "README.md",
+        "custom/agent_custom.ts",
+        "custom/sixDirectionImg.jres",
+        "custom/turnDirectionImg.jres"
     ],
     "testFiles": [
         "test.ts"
@@ -19,5 +22,6 @@
     },
     "supportedTargets": [
         "minecraft"
-    ]
+    ],
+    "preferredEditor": "blocksprj"
 }
