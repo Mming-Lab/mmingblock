@@ -3,5 +3,5 @@ loops.forever(function () {
     agent.turn_Left()
     agent.turn_Right()
     agent.moveImg(SixDirectionImg.Forward, 1)
-    agent.turnImg(TurnDirectionImg.Right)
+    agent.turnImg(TurnDirectionImg.Left)
 })

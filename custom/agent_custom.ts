@@ -30,16 +30,6 @@ declare const enum TurnDirectionImg {
 }
 
 namespace agent {
-
-    //% blockGap=8
-    //% weight=330
-    //% shim=TD_ID blockId=SixDirectionImgBlock
-    //% block="%sixDirectionImg"
-    //% sixDirectionImg.fieldEditor="gridpicker"
-    export function __sixDirectionImg(sixDirectionImg: SixDirectionImg): number {
-        return sixDirectionImg;
-    }
-
     //% weight=500
     //% block="01:`SixDirectionImg.Forward`に 1 ブロック移動(いどう)"
     export function moveFrontOne(): void {
@@ -57,12 +47,16 @@ namespace agent {
     }
     //% weight=470
     //% block="04:%direction|に%blocks|ブロック移動(いどう)"
-    //% blocks.defl=1
+    //% direction.fieldEditor="gridpicker"
+    //% direction.fieldOptions.width=160
+    //% blocks.defl=1   
     export function moveImg(direction: SixDirectionImg, blocks:number): void {
         agent.move(direction, blocks);
     }
     //% weight=450
     //% block="05:向(む)きを%direction|に変(か)える"
+    //% direction.fieldEditor="gridpicker"
+    //% direction.fieldOptions.width=80
     export function turnImg(direction: TurnDirectionImg): void {
         agent.turn(direction);
     }
