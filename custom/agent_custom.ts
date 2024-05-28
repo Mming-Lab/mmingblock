@@ -31,17 +31,17 @@ declare const enum TurnDirectionImg {
 
 namespace agent {
     //% weight=500
-    //% block="`SixDirectionImg.Forward`に 1 ぽ すすむ"
+    //% block="まえ`SixDirectionImg.Forward`に 1 ぽ すすむ"
     export function moveFrontOne(): void {
         agent.move(FORWARD, 1);
     }
     //% weight=490
-    //% block="`TurnDirectionImg.Left`を むく"
+    //% block="ひだり`TurnDirectionImg.Left`を むく"
     export function turn_Left(): void {
         agent.turn(LEFT_TURN);
     }
     //% weight=480
-    //% block="`TurnDirectionImg.Right`を むく"
+    //% block="みぎ`TurnDirectionImg.Right`を むく"
     export function turn_Right(): void {
         agent.turn(RIGHT_TURN)
     }
