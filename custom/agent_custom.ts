@@ -31,7 +31,7 @@ declare const enum TurnDirectionImg {
 
 namespace agent {
     //% weight=500
-    //% block="01:`SixDirectionImg.Forward`に 1 ブロック移動(いどう)"
+    //% block="01:`SixDirectionImg.Forward`前に 1 ブロック移動(いどう)"
     export function moveFrontOne(): void {
         agent.move(FORWARD, 1);
     }
