@@ -11,7 +11,9 @@
         "README.md",
         "custom/agent_custom.ts",
         "custom/sixDirectionImg.jres",
-        "custom/turnDirectionImg.jres"
+        "custom/turnDirectionImg.jres",
+        "custom/free_camera.ts",
+        "custom/Easing.jres"
     ],
     "testFiles": [
         "test.ts"
