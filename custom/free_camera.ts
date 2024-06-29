@@ -2,6 +2,12 @@
 enum Easing {
     //% block=""
     //% jres alias = ""
+    linear,
+    //% block=""
+    //% jres alias = ""
+    spring,
+    //% block=""
+    //% jres alias = ""
     in_quad,
     //% block=""
     //% jres alias = ""
@@ -89,13 +95,7 @@ enum Easing {
     out_elastic,
     //% block=""
     //% jres alias = ""
-    in_out_elastic,
-    //% block=""
-    //% jres alias = ""
-    linear,
-    //% block=""
-    //% jres alias = ""
-    spring
+    in_out_elastic
 }
 /**
  * Custom blocks
@@ -146,17 +146,28 @@ namespace Custom {
     const COMMND_BASE: string ="camera @s ";
     const CLEAR: string = "${COMMND_BASE} clear";
     const FREE: string = "${COMMND_BASE} set minecraft: free";
-    //% block="カメラワーク| 座標:%pos=minecraftCreatePosition| 被写体:%facing| イージング時間:%easeTimeイージング種類:%easeType"
+    //% block="カメラワーク| 移動先:%pos=minecraftCreatePosition| 被写体:%facing| イージング種類:%easeType| イージング秒:%easeTime| ワーク取消:%clear"
     //% easeTime.defl=10
     //% easeType.fieldEditor="gridpicker"
     //% easeType.fieldOptions.width=120
-    export function freeCamera(pos:Position, facing:TargetSelectorKind,easeTime:number,easeType: Easing): void {
-        const facingCmd: string = "facing ${facing}";
-        const posCmd: string = "pos ${pos} ";
-        const easeCmd: string ="ease ${easeTime} ${_getEasingId(easeType)} ";
-        player.say("${FREE} ${posCmd} ${facingCmd} ${easeCmd}")
-        player.say(CLEAR);
+    //% clear.defl=true
+    //% clear.shadow=toggleOnOff
+    export function freeCamera(pos: Position, facing: TargetSelectorKind, easeType: Easing, easeTime: number, clear: boolean): void {
+        const facingCmd: string = `facing ${mobs.target(facing)}`;//被写体:
+        const posCmd: string = `pos ${pos} `;//移動先座標
+        const easeCmd: string = `ease ${easeTime} ${_getEasingId(easeType)} `;//イージング
+        const cmd: string = `${FREE} ${easeCmd} ${posCmd} ${facingCmd}`;//コマンド
+        player.execute(cmd);//実行
+        loops.pause(easeTime * 1000)//待機
     }
+
+    //% block="%time秒後にカメラワーク取消"
+    //% time.defl=0
+    export function CameraClear(time: number): void {
+        loops.pause(time * 1000)//待機
+        player.execute(`${COMMND_BASE} clear`);
+    }
+
 
     
 }
