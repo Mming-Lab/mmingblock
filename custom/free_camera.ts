@@ -5,12 +5,12 @@
 //% weight=100 color=#54bfff icon=""
 namespace Custom {
 
-    const COMMND_BASE: string = "camera @s ";
-    const FREE: string = "${COMMND_BASE} set minecraft: free";
-    
+    const COMMND_BASE: string = `camera @s `;
+    const FREE: string = `${COMMND_BASE} set minecraft:free`;
+
     //% block="フェード| イン秒:%fadeInSeconds| 停止秒:%holdSeconds| アウト秒:%fadeOutSeconds| 色:%colorCode=colorNumberPicker| ワーク取消:%clear"
-    //% fadeInSeconds.defl=3
-    //% holdSeconds.defl=0
+    //% fadeInSeconds.defl=1
+    //% holdSeconds.defl=1
     //% fadeOutSeconds.defl=0
     //% colorCode.defl=0x000000
     //% clear.defl=false
@@ -23,6 +23,7 @@ namespace Custom {
         const colorCmd: string = `color ${red} ${green} ${blue} `
         //camera <players: target> fade time <fadeInSeconds: float> <holdSeconds: float> <fadeOutSeconds: float> color <red: int> <green: int> <blue: int>
         const cmd: string = `${COMMND_BASE} ${fadeTimeCmd} ${colorCmd}`;
+        player.say(cmd);
         player.execute(cmd);//実行
         loops.pause((fadeInSeconds + holdSeconds + fadeOutSeconds) * 1000)//待機
         if (clear) {
@@ -42,9 +43,10 @@ namespace Custom {
         const facingCmd: string = `facing ${mobs.target(facing)}`;//被写体:
         //camera <players: target> set <preset: string> ease <easeTime: float> <easeType: Easing> pos <position: x y z> facing <lookAtEntity: target>
         const cmd: string = `${FREE} ${easeCmd} ${posCmd} ${facingCmd}`;//コマンド
+        player.say(cmd);
         player.execute(cmd);//実行
         loops.pause(easeTime * 1000)//待機
-        if (clear){
+        if (clear) {
             CameraClear(0); //カメラワーク取消
         }
     }
