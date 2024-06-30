@@ -2,8 +2,8 @@
 /**
  * Custom blocks
  */
-//% weight=100 color=#54bfff icon=""
-namespace Custom {
+//% weight=100 color=#54bfff icon="\uf03d" block="カメラ"
+namespace Camera {
 
     const COMMND_BASE: string = `camera @s `;
     const FREE: string = `${COMMND_BASE} set minecraft:free`;
@@ -32,7 +32,7 @@ namespace Custom {
     }
 
     //% block="被写体ワーク| 被写体:%facing| 移動先:%pos=minecraftCreatePosition| イージング種類:%easeType| イージング秒:%easeTime| ワーク取消:%clear"
-    //% easeTime.defl=10
+    //% easeTime.defl=3
     //% easeType.fieldEditor="gridpicker"
     //% easeType.fieldOptions.width=120
     //% clear.defl=true
