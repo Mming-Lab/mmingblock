@@ -3,11 +3,40 @@
  * Custom blocks
  */
 //% weight=100 color=#54bfff icon="\uf03d" block="カメラ"
-namespace Camera {
+namespace Camera2 {
 
     const COMMND_BASE: string = `camera @s `;
     const FREE: string = `${COMMND_BASE} set minecraft:free`;
 
+    //% block="被写体ワーク| 被写体:%facing| 移動先:%pos=minecraftCreatePosition| イージング種類:%easeType| イージング秒:%easeTime| ワーク取消:%clear"
+    //% easeTime.defl=3
+    //% easeType.fieldEditor="gridpicker"
+    //% easeType.fieldOptions.width=120
+    //% clear.defl=true
+    //% clear.shadow=toggleOnOff
+    export function EaseEntity(facing: TargetSelectorKind, pos: Position, easeType: Easing, easeTime: number, clear: boolean): void {
+        const easeCmd: string = `ease ${easeTime} ${_getEasingId(easeType)} `;//イージング
+        const posCmd: string = `pos ${pos} `;//移動先座標
+        const facingCmd: string = `facing ${mobs.target(facing)}`;//被写体:
+        //camera <players: target> set <preset: string> ease <easeTime: float> <easeType: Easing> pos <position: x y z> facing <lookAtEntity: target>
+        const cmd: string = `${FREE} ${easeCmd} ${posCmd} ${facingCmd}`;//コマンド
+        player.say(cmd);
+        player.execute(cmd);//実行
+        loops.pause(easeTime * 1000)//待機
+        if (clear) {
+            CameraClear(0); //カメラワーク取消
+        }
+    }
+
+    //% block="%time秒後にカメラワーク取消"
+    //% time.defl=0
+    export function CameraClear(time: number): void {
+        loops.pause(time * 1000)//待機
+        player.execute(`${COMMND_BASE} clear`);
+    }
+
+
+    //% group="フェード"
     //% block="フェード| イン秒:%fadeInSeconds| 停止秒:%holdSeconds| アウト秒:%fadeOutSeconds| 色:%colorCode=colorNumberPicker| ワーク取消:%clear"
     //% fadeInSeconds.defl=1
     //% holdSeconds.defl=1
@@ -31,44 +60,20 @@ namespace Camera {
         }
     }
 
-    //% block="被写体ワーク| 被写体:%facing| 移動先:%pos=minecraftCreatePosition| イージング種類:%easeType| イージング秒:%easeTime| ワーク取消:%clear"
-    //% easeTime.defl=3
-    //% easeType.fieldEditor="gridpicker"
-    //% easeType.fieldOptions.width=120
-    //% clear.defl=true
-    //% clear.shadow=toggleOnOff
-    export function entityCamera(facing: TargetSelectorKind, pos: Position, easeType: Easing, easeTime: number, clear: boolean): void {
-        const easeCmd: string = `ease ${easeTime} ${_getEasingId(easeType)} `;//イージング
-        const posCmd: string = `pos ${pos} `;//移動先座標
-        const facingCmd: string = `facing ${mobs.target(facing)}`;//被写体:
-        //camera <players: target> set <preset: string> ease <easeTime: float> <easeType: Easing> pos <position: x y z> facing <lookAtEntity: target>
-        const cmd: string = `${FREE} ${easeCmd} ${posCmd} ${facingCmd}`;//コマンド
-        player.say(cmd);
-        player.execute(cmd);//実行
-        loops.pause(easeTime * 1000)//待機
-        if (clear) {
-            CameraClear(0); //カメラワーク取消
-        }
-    }
 
-    //% block="%time秒後にカメラワーク取消"
-    //% time.defl=0
-    export function CameraClear(time: number): void {
-        loops.pause(time * 1000)//待機
-        player.execute(`${COMMND_BASE} clear`);
-    }
-
+    //% group="フェード"
     //% block="%color=colorNumberPicker"
     //% color.defl=0xff0000
     export function setcolors(color: number): number {
         return color;
     }
+
+    //% group="フェード"
     //% block="赤%red| 緑%green|青%blue"
     //% red.min=0 red.max=255 green.min=0 green.max=255 blue.min=0 blue.max=255
     export function rgb(red: number, green: number, blue: number): number {
         return ((red & 0xFF) << 16) | ((green & 0xFF) << 8) | (blue & 0xFF);
     }
-
 
 
     export function _getEasingId(id: Easing) {
