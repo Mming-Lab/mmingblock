@@ -13,7 +13,8 @@
         "custom/sixDirectionImg.jres",
         "custom/turnDirectionImg.jres",
         "custom/free_camera.ts",
-        "custom/Easing.jres"
+        "custom/Easing.jres",
+        "custom/Coordinate.ts"
     ],
     "testFiles": [
         "test.ts"
